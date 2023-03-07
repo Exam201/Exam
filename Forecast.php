@@ -16,7 +16,7 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Forecast</a>
+          <a class="nav-link" href="Forecast.php">Forecast</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Air Quality</a>
