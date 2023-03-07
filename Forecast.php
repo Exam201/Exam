@@ -7,10 +7,11 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- navbar -->
 <script>
+var weatherlocation = "London";
 const settings = {
 	"async": true,
 	"crossDomain": true,
-	"url": "https://weatherapi-com.p.rapidapi.com/forecast.json?q=London&days=7",
+	"url": `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${weatherlocation}&days=3`,
 	"method": "GET",
 	"headers": {
 		"X-RapidAPI-Key": "79171e5d24msh41c8d90c88ee23fp1efeb4jsnea0811d2e874",
