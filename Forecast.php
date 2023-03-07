@@ -1,11 +1,30 @@
 <?php
 include 'Library/dbconnect.php';
 $conn = connect(); //this calls the connection function from the dbconnect.php file and returns the connection object to the variable $conn
-
 ?>
 <link rel="Stylesheet" href="bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 <script scr="bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- navbar -->
+<script>
+const settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://weatherapi-com.p.rapidapi.com/forecast.json?q=London&days=7",
+	"method": "GET",
+	"headers": {
+		"X-RapidAPI-Key": "79171e5d24msh41c8d90c88ee23fp1efeb4jsnea0811d2e874",
+		"X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+	}
+};
+
+$.ajax(settings).done(function (weatherdata) {
+	console.log(weatherdata);
+    console.log(weatherdata.current.cloud);
+});
+
+
+</script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <img src="images/placeholder.png" alt="logo" style="width:75px; height:50px; padding-right: 10px;">
