@@ -108,7 +108,7 @@ else
     <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
         <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_alert()"></button>
         <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
-        <p style="text-align: center;" id="weather_warning" class="mb-0">A weather warnings have been issued for issued for ....</p>
+        <p style="text-align: center;" id="weather_warning" class="mb-0"></p>
     </div>
 </div>
 <div id="weather_spacing">
