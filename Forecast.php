@@ -1,6 +1,14 @@
 <?php
+session_start();
 include 'Library/dbconnect.php';
 $conn = connect(); //this calls the connection function from the dbconnect.php file and returns the connection object to the variable $conn
+if (!isset($_SESSION["set_location"])) {
+    $_SESSION["set_location"] = "London";
+} //this checks if the user has set a location and if not sets it to London
+elseif (isset($_POST["set_location"])) {
+    $_SESSION["set_location"] = $_POST["set_location"];
+} //this checks if the user has set a new location and sets it to that location
+
 ?>
 <doctype html>
 <html>
@@ -8,24 +16,37 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
 <script scr="bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-var weatherlocation = "London";
+var weather_location = "<?php echo "" . $_SESSION["set_location"]?>"
+
 const settings = {
 	"async": true,
 	"crossDomain": true,
-	"url": `https://weatherapi-com.p.rapidapi.com/forecast.json?q=${weatherlocation}&days=3`,
-	"method": "GET",
-	"headers": {
-		"X-RapidAPI-Key": "79171e5d24msh41c8d90c88ee23fp1efeb4jsnea0811d2e874",
-		"X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
-	}
+	"url": `http://api.weatherapi.com/v1/forecast.json?key=af5d6949e83c4c10ab6103819230803&q=${weather_location}&days=3&aqi=yes&alerts=yes`,
+	"method": "GET"
 }; //this is the API call to get the weather data
 
-$.ajax(settings).done(function (weatherdata) {
-	console.log(weatherdata);
-    console.log(weatherdata.current.cloud);
+$.ajax(settings).done(function (weather_data) {
+	console.log(weather_data);
+    console.log(weather_data.current.cloud);
 });
 
+if  (selected_time_check = true){
+}
+else {
+    const current_day = new Date();
+    let hour = current_day.getHours()
+    var selected_time = hour
+}
+
+console.log(selected_time)
 </script>
+<style>
+    .table {
+        margin: 0 auto;
+        width: 50%;
+        font-size: 20px;
+    }
+</style>
 <header>
     <title>Forecast</title>
 </header>
@@ -65,12 +86,154 @@ $.ajax(settings).done(function (weatherdata) {
 <!-- end navbar -->
 <!-- start of main content -->
 <div>
-<h1 id="pagetitle" style="text-align: center; "></h1>
-<form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
-    <input class="form-control me-sm-2" type="search" placeholder="Search Location">
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
-</form>
+    <h1 id="pagetitle" style="text-align: center; "></h1>
+    <form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
+        <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
+    </form>
+    <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
+        <p style="text-align: center;" id="weather_warning" class="mb-0">A weather warnings have been issued for issued for ....</p>
+    </div>
+</div>
+<div style ="margin-top:20%;">
+<div class="mx-auto" style="width: 200px;">
+        <img id="weather_icon" src="" alt="weather icon" style="width: 100px; height: 100px;">
+</div>
+<div class="container" style="margin-left: 5%;">
+  <div class="row">
+    <div class="col">
+    <form class="d-flex" id="time_selection" action="forecast.php" method="post"> 
+    <div class="form-group">
+      <label for="time_select" class="form-label mt-4">Time</label>
+      <select class="form-select" id="time_select">
+        <option value="0" >00:00</option>
+        <option value="1" >01:00</option>
+        <option value="2" >02:00</option>
+        <option value="3" >03:00</option>
+        <option value="4" >04:00</option>
+        <option value="5" >05:00</option>
+        <option value="6" >06:00</option>
+        <option value="7" >07:00</option>
+        <option value="8" >08:00</option>
+        <option value="9" >09:00</option>
+        <option value="10" >10:00</option>
+        <option value="11" >11:00</option>
+        <option value="12" >12:00</option>
+        <option value="13" >13:00</option>
+        <option value="14" >14:00</option>
+        <option value="15" >15:00</option>
+        <option value="16" >16:00</option>
+        <option value="17" >17:00</option>
+        <option value="18" >18:00</option>
+        <option value="19" >19:00</option>
+        <option value="20" >20:00</option>
+        <option value="21" >21:00</option>
+        <option value="22" >22:00</option>
+        <option value="23" >23:00</option>
+      </select>
+    </div>
+    </form>
+    <div class="col">
+    <table class="table">
+    <tbody>
+    <tr>
+      <th scope="row">Temperature</th>
+      <td id="temperature"></td>
+    </tr>
+    <tr>
+    <th scope="row">Humidity</th>
+    <td id="humidity"></td>
+    </tr>
+    <tr>
+    <th scope="row">Wind Speed</th>
+    <td id="wind_speed"></td>
+    </tr>
+    <tr>
+    <th scope="row">Maximum Gusts</th>
+    <td id="maximum_gusts"></td>
+    </tr>
+    <tr>
+    <th scope="row">Air Quality</th>
+    <td id="air_quality"></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
     var pagetitle = document.getElementById("pagetitle");
-    pagetitle.innerHTML = "Forecast for " + weatherlocation; //this changes the heading of the page to match the location of the weather
+    pagetitle.innerHTML = "Forecast for " + weather_location; //this changes the heading of the page to match the location of the weather
+$.ajax(settings).done(function (weather_data) {
+    var weather_warning = document.getElementById("weather_warning");
+    var alert_text = "";
+if (weather_data.alerts.alert.length != 0) { // this checks if there is any weather warnings in the api array
+    var weather_alert = document.getElementById("weather_alert"); //if there is no warnings this hides the warning box
+    weather_alert.hidden = "";
+    array_length = weather_data.alerts.alert.length;
+    for (var i = 0; i < weather_data.alerts.alert.length-1; i++) {
+        if (i == 0) {
+            var alert_text = alert_text + weather_data.alerts.alert[i].headline + " for " + weather_location  + "<br>" ; //this changes the string to match the location of the weather and the warning for the first alert
+        }
+        else if ((weather_data.alerts.alert[i].headline == weather_data.alerts.alert[i+1].headline) || (weather_data.alerts.alert[i].headline == weather_data.alerts.alert[0].headline)) {
+           continue;
+        }
+        else {
+            var alert_text = alert_text + weather_data.alerts.alert[i].headline + " for " + weather_location  + "<br>" ; //this changes the string to match the location of the weather and the warning
+        }
+        }
+    }
+    
+var weather_icon= document.getElementById("weather_icon");
+weather_icon.src = weather_data.current.condition.icon; //this changes the weather icon to match the weather
+weather_warning.innerHTML = alert_text; //this changes the warning to match the warning
+var temperature = document.getElementById("temperature");
+temperature.innerHTML = weather_data.forecast.forecastday[0].day.avgtemp_c + "°C"; //this changes the temperature to match the temperature
+var humidity = document.getElementById("humidity");
+humidity.innerHTML = weather_data.forecast.forecastday[0].day.avghumidity + "%"; //this changes the humidity to match the humidity
+var wind_speed = document.getElementById("wind_speed");
+wind_speed.innerHTML = weather_data.forecast.forecastday[0].day.avgvis_miles + " miles/h"; //this changes the wind speed to match the wind speed
+var maximum_gusts = document.getElementById("maximum_gusts");
+maximum_gusts.innerHTML = weather_data.forecast.forecastday[0].day.maxwind_kph + "miles/h"; //this changes the maximum gusts to match the maximum gusts
+var air_quality = document.getElementById("air_quality");
+
+if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <+ 3){
+    air_quality.style.color = "green";
+    air_quality.innerHTML = "Good";
+}
+else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 4){
+    air_quality.style.color = "yellow";
+    air_quality.innerHTML = "Moderate";
+}
+else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 6){
+    air_quality.style.color = "orange";
+    air_quality.innerHTML = "Unhealthy for Sensitive Groups";
+}
+else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 7){
+    air_quality.style.color = "red";
+    air_quality.innerHTML = "Unhealthy";
+}
+else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 9){
+    air_quality.style.color = "purple";
+    air_quality.innerHTML = "Very Unhealthy";
+}
+else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 10){
+    air_quality.style.color = "maroon";
+    air_quality.innerHTML = "Hazardous";
+}
+else {
+    air_quality.style.color = "black";
+    air_quality.innerHTML = "Unknown";
+}
+});
+document.getElementById('time_select').onchange = function() {
+    selected_time = time_select.value;
+    selected_time_check = true;
+    document.getElementById("time_selection").submit();
+}
 </script>
