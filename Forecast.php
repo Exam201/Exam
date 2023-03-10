@@ -106,19 +106,14 @@ else
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
     </form>
     <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_alert()"></button>
         <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
         <p style="text-align: center;" id="weather_warning" class="mb-0">A weather warnings have been issued for issued for ....</p>
     </div>
 </div>
-<div style ="margin-top:20%;">
-<div class="mx-auto" style="width: 200px;">
-        <img id="weather_icon" src="" alt="" style="width: 150px; height: 150px;">
-</div>
-<div class="container" style="margin-left: 5%;">
-  <div class="row">
-    <div class="col">
-    <form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
+<div id="weather_spacing">
+<div class="container">
+<form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
     <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
       <select class="form-select" name="time_selected" id="time_select">
@@ -149,8 +144,15 @@ else
       </select>
     </div>
     </form>
+  <div class="row">
     <div class="col">
-    <table class="table">
+    <div style="margin-top: 4%;">
+        <h2 id="weather_description"></h2>
+        <img id="weather_icon" src="" alt="" style="width: 150px; height: 150px;">
+    </div>
+    </div>
+    <div class="col">
+    <table class="table" style="width: 100%;">
     <tbody>
     <tr>
       <th scope="row">Temperature</th>
@@ -192,6 +194,8 @@ $.ajax(settings).done(function (weather_data) {
 if (weather_data.alerts.alert.length != 0) { // this checks if there is any weather warnings in the api array
     var weather_alert = document.getElementById("weather_alert"); //if there is no warnings this hides the warning box
     weather_alert.hidden = "";
+    var weather_spacing = document.getElementById("weather_spacing");
+    weather_spacing.style.marginTop = "0px";
     array_length = weather_data.alerts.alert.length;
     for (var i = 0; i < weather_data.alerts.alert.length-1; i++) {
         if (i == 0) {
@@ -211,16 +215,18 @@ weather_icon.src = weather_data.forecast.forecastday[0].hour[selected_time].cond
 weather_icon.alt = weather_data.forecast.forecastday[0].hour[selected_time].condition.text; //this changes the weather icon alt text to match the weather
 weather_warning.innerHTML = alert_text; //this changes the warning to match the warning
 var temperature = document.getElementById("temperature");
-temperature.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].temp_c + "°C"; //this changes the temperature to match the temperature
+temperature.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].temp_c + "°C"; //this changes the temperature to match the temperaturein the api
 var humidity = document.getElementById("humidity");
-humidity.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].humidity + "%"; //this changes the humidity to match the humidity
+humidity.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].humidity + "%"; //this changes the humidity to match the humidity in the api
 var wind_speed = document.getElementById("wind_speed");
-wind_speed.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].wind_mph + " miles/h"; //this changes the wind speed to match the wind speed
+wind_speed.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].wind_mph + " miles/h"; //this changes the wind speed to match the wind speed in the api
 var maximum_gusts = document.getElementById("maximum_gusts");
-maximum_gusts.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].gust_mph + " miles/h"; //this changes the maximum gusts to match the maximum gusts
+maximum_gusts.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].gust_mph + " miles/h"; //this changes the maximum gusts to match the maximum gusts in the api
 var air_quality = document.getElementById("air_quality");
 var rain_chance = document.getElementById("rain_chance");
-rain_chance.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].chance_of_rain + "%"; //this changes the chance of rain to match the chance of rain
+rain_chance.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].chance_of_rain + "%"; //this changes the chance of rain to match the chance of rain in the api
+var weather_description = document.getElementById("weather_description");
+weather_description.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].condition.text; //this changes the weather description to match the weather description in the api
 
 if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <+ 3){
     air_quality.style.color = "green";
@@ -254,5 +260,9 @@ else {
 document.getElementById('time_select').onchange = function() {
     selected_time = time_select.value;
     document.getElementById("time_selection").submit();
+}
+function close_alert() {
+    var weather_alert = document.getElementById("weather_alert");
+    weather_alert.hidden = "hidden";
 }
 </script>
