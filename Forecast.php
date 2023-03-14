@@ -76,7 +76,7 @@ else
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="Forecast.php">Forecast</a>
+          <a class="nav-link" href="forecast.php">Forecast</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Air Quality</a>
@@ -113,6 +113,31 @@ else
 </div>
 <div id="weather_spacing">
 <div class="container">
+<div>
+  <ul class="pagination pagination-lg">
+    <li class="page-item disabled">
+      <a class="page-link" href="#">&laquo;</a>
+    </li>
+    <li class="page-item active">
+      <a class="page-link" href="#" style="background-color: #375a7f;">1</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">2</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">3</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">4</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">5</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" href="#">&raquo;</a>
+    </li>
+  </ul>
+</div>
 <form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
     <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
