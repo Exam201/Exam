@@ -26,6 +26,28 @@ if (isset($_POST["time_selected"])) {
     $_SESSION['selected_time'] = $_POST["time_selected"];
 }
 
+if (!isset($_SESSION["selected_day"])) {
+    $_SESSION["selected_day"] = 0;
+    echo "!";
+} //this checks if the user has set a day else sets it to 0 (current day)
+
+if (isset($_POST['selected_day'])) {
+    $_SESSION["selected_day"] = intval($_POST['selected_day']);
+}
+if (isset($_POST['forward_selected_day'])) {
+    if ($_SESSION["selected_day"] == 2) {
+        $_SESSION["selected_day"] = 0;
+    } else {
+        $_SESSION["selected_day"] = $_SESSION["selected_day"] + 1;
+    }
+}
+if (isset($_POST['back_selected_day'])) {
+    if ($_SESSION["selected_day"] == 0) {
+        $_SESSION["selected_day"] = 2;
+    } else {
+        $_SESSION["selected_day"] = $_SESSION["selected_day"] - 1;
+    }
+}
 ?>
 <doctype html>
 <html>
@@ -54,6 +76,8 @@ else
 {
     var selected_time = selected_time 
 } //this checks if the user has selected a time and if not sets it to the current time
+
+var selected_day = "<?php echo "" . $_SESSION['selected_day']?>" //this gets the selected day from the session variable
 
 $.ajax(settings).done(function (weather_data) {
     console.log(weather_data);
@@ -110,7 +134,7 @@ $.ajax(settings).done(function (weather_data) {
 <div>
     <h1 id="pagetitle" style="text-align: center; "></h1>
     <form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
-        <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location">
+        <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location/Postcode">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
     </form>
     <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
@@ -120,36 +144,48 @@ $.ajax(settings).done(function (weather_data) {
     </div>
 </div>
 <div id="weather_spacing">
+<h2 style="text-align: center;">Day</h2>
 <div class="container">
-<div>
+<div div class="d-flex justify-content-center">
   <ul class="pagination pagination-lg">
-    <li class="page-item disabled">
-      <a class="page-link" href="#">&laquo;</a>
+    <li class="page-item">
+    <form id="form_day_selection_backward" action="forecast.php" method="post">
+    <button class="btn btn-primary">&laquo;</button>
+    <input class="form-control" name="back_selected_day" type="hidden" value="-1">
+    </form>
     </li>
     <li class="page-item active">
-      <a class="page-link" href="#" style="background-color: #375a7f;">1</a>
+    <form id="form_day_selection1" action="forecast.php" method="post">
+    <button value="0" class="btn btn-primary">1</button>
+    <input class="form-control" name="selected_day" type="hidden" value="0">
+    </form>
     </li>
     <li class="page-item">
-      <a class="page-link" href="#">2</a>
+    <form id="form_day_selection2" action="forecast.php" method="post">
+      <button value="1" class="btn btn-primary">2</button>
+      <input class="form-control" name="selected_day" type="hidden" value="1">
+    </form>
     </li>
     <li class="page-item">
-      <a class="page-link" href="#">3</a>
+    <form id="form_day_selection3" action="forecast.php" method="post">
+      <button value="2" class="btn btn-primary">3</button>
+      <input class="form-control" name="selected_day" type="hidden" value="2">
+    </form>  
     </li>
     <li class="page-item">
-      <a class="page-link" href="#">4</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">5</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">&raquo;</a>
+    <form id="form_day_selection_forward" action="forecast.php" method="post">
+    <button class="btn btn-primary">&raquo;</button>
+    <input class="form-control" name="forward_selected_day" type="hidden" value="1">
+    </form>
     </li>
   </ul>
+</form>
 </div>
 <form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
     <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
       <select class="form-select" name="time_selected" id="time_select">
+        <!-- this is the time selection for the weather -->
         <option value="0" <?php if($_SESSION['selected_time'] == "0"){ echo "selected='selected'"; }?> >00:00</option>
         <option value="1" <?php if($_SESSION['selected_time'] == "1"){ echo "selected='selected'"; }?> >01:00</option>
         <option value="2" <?php if($_SESSION['selected_time'] == "2"){ echo "selected='selected'"; }?> >02:00</option>
@@ -173,7 +209,8 @@ $.ajax(settings).done(function (weather_data) {
         <option value="20" <?php if($_SESSION['selected_time'] == "20"){ echo "selected='selected'"; }?> >20:00</option>
         <option value="21" <?php if($_SESSION['selected_time'] == "21"){ echo "selected='selected'"; }?> >21:00</option>
         <option value="22" <?php if($_SESSION['selected_time'] == "22"){ echo "selected='selected'"; }?> >22:00</option>
-        <option value="23" <?php if($_SESSION['selected_time'] == "23"){ echo "selected='selected'"; }?> >23:00</option> <!-- this is the time selection for the weather -->
+        <option value="23" <?php if($_SESSION['selected_time'] == "23"){ echo "selected='selected'"; }?> >23:00</option> 
+        <!-- this is the time selection for the weather -->
       </select>
     </div>
     </form>
@@ -244,44 +281,44 @@ if (weather_data.alerts.alert.length != 0) { // this checks if there is any weat
     }
     
 var weather_icon= document.getElementById("weather_icon");
-weather_icon.src = weather_data.forecast.forecastday[0].hour[selected_time].condition.icon; //this changes the weather icon to match the weather
-weather_icon.alt = weather_data.forecast.forecastday[0].hour[selected_time].condition.text; //this changes the weather icon alt text to match the weather
+weather_icon.src = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.icon; //this changes the weather icon to match the weather
+weather_icon.alt = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.text; //this changes the weather icon alt text to match the weather
 weather_warning.innerHTML = alert_text; //this changes the warning to match the warning
 var temperature = document.getElementById("temperature");
-temperature.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].temp_c + "°C"; //this changes the temperature to match the temperaturein the api
+temperature.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].temp_c + "°C"; //this changes the temperature to match the temperaturein the api
 var humidity = document.getElementById("humidity");
-humidity.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].humidity + "%"; //this changes the humidity to match the humidity in the api
+humidity.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].humidity + "%"; //this changes the humidity to match the humidity in the api
 var wind_speed = document.getElementById("wind_speed");
-wind_speed.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].wind_mph + " miles/h"; //this changes the wind speed to match the wind speed in the api
+wind_speed.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].wind_mph + " miles/h"; //this changes the wind speed to match the wind speed in the api
 var maximum_gusts = document.getElementById("maximum_gusts");
-maximum_gusts.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].gust_mph + " miles/h"; //this changes the maximum gusts to match the maximum gusts in the api
+maximum_gusts.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].gust_mph + " miles/h"; //this changes the maximum gusts to match the maximum gusts in the api
 var air_quality = document.getElementById("air_quality");
 var rain_chance = document.getElementById("rain_chance");
-rain_chance.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].chance_of_rain + "%"; //this changes the chance of rain to match the chance of rain in the api
+rain_chance.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].chance_of_rain + "%"; //this changes the chance of rain to match the chance of rain in the api
 var weather_description = document.getElementById("weather_description");
-weather_description.innerHTML = weather_data.forecast.forecastday[0].hour[selected_time].condition.text; //this changes the weather description to match the weather description in the api
+weather_description.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.text; //this changes the weather description to match the weather description in the api
 
-if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <+ 3){
+if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <+ 3){
     air_quality.style.color = "green";
     air_quality.innerHTML = "Good";
 }
-else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 4){
+else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 4){
     air_quality.style.color = "yellow";
     air_quality.innerHTML = "Moderate";
 }
-else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 6){
+else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 6){
     air_quality.style.color = "orange";
     air_quality.innerHTML = "Unhealthy for Sensitive Groups";
 }
-else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 7){
+else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 7){
     air_quality.style.color = "red";
     air_quality.innerHTML = "Unhealthy";
 }
-else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 9){
+else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 9){
     air_quality.style.color = "purple";
     air_quality.innerHTML = "Very Unhealthy";
 }
-else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["gb-defra-index"] <= 10){
+else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 10){
     air_quality.style.color = "maroon";
     air_quality.innerHTML = "Hazardous";
 }
@@ -298,4 +335,14 @@ function close_alert() {
     var weather_alert = document.getElementById("weather_alert");
     weather_alert.hidden = "hidden";
 } //this hides the weather alert box
+function day_forward() {
+    selected_day = parseInt(selected_day);
+    if (selected_day == 2) {
+        selected_day = 0;
+    }
+    else {
+        selected_day = selected_day + 1;
+    }
+
+} //this changes the day forward to match the day forward in the api
 </script>

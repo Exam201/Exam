@@ -1,5 +1,5 @@
 <?php
-if ($_POST['password'] == $_POST['confirmpassword']) {
+if ($_POST['password'] == $_POST['confirmpassword']) { // if the password and confirm password fields match
     include "Library/dbconnect.php";
     $conn = connect();
     $query = "SELECT * FROM users WHERE username=?";
@@ -8,7 +8,7 @@ if ($_POST['password'] == $_POST['confirmpassword']) {
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
-    if ($user) {
+    if ($user) { // if the username is already in the database
         session_unset();
         session_start();
         $_SESSION['username_error'] = true;
@@ -22,7 +22,7 @@ if ($_POST['password'] == $_POST['confirmpassword']) {
         $stmt->execute();
         $result = $stmt->get_result();
         $email = $result->fetch_assoc();
-        if ($email) {
+        if ($email) { // if the email is already in the database
             $_SESSION['email_error'] = true;
             header('location: register.php');
         }
