@@ -3,20 +3,27 @@ session_start();
 include 'Library/dbconnect.php';
 $conn = connect(); //this calls the connection function from the dbconnect.php file and returns the connection object to the variable $conn
 
+$nav_hidden = "";
+$nav_unhidden = "hidden";
+if (isset($_SESSION["userid"])) {
+    $nav_hidden = "hidden";
+    $nav_unhidden = "";
+} //this is used to hide the sign up button if the user is logged in and to hide the logout button if the user is not logged in
+
 if (!isset($_SESSION["set_location"])) {
     $_SESSION["set_location"] = "London";
 } //this checks if the user has set a location and if not sets it to London
 
-if (isset($_POST["set_location"])) {
-    $_SESSION["set_location"] = $_POST["set_location"];
+if (isset($_POST['set_location'])) {
+    $_SESSION["set_location"] = $_POST['set_location'];
 } //this checks if the user has set a new location and sets it to that location
 
 
-if (!isset($_SESSION["selected_time"])) {
-    $_SESSION["selected_time"] = "false";
+if (!isset($_SESSION['selected_time'])) {
+    $_SESSION['selected_time'] = "false";
 }
 if (isset($_POST["time_selected"])) {
-    $_SESSION["selected_time"] = $_POST["time_selected"];
+    $_SESSION['selected_time'] = $_POST["time_selected"];
 }
 
 ?>
@@ -35,14 +42,9 @@ const settings = {
 	"method": "GET"
 }; //this is the API call to get the weather data
 
-$.ajax(settings).done(function (weather_data) {
-	console.log(weather_data);
-    console.log(weather_data.current.cloud);
-});
 
-
-var selected_time = "<?php echo "" . $_SESSION["selected_time"]?>"
-if (selected_time == "false")
+var selected_time = "<?php echo "" . $_SESSION['selected_time']?>"
+if (selected_time == "false") 
 {
     const current_day = new Date();
     let hour = current_day.getHours()
@@ -50,9 +52,12 @@ if (selected_time == "false")
 }
 else
 {
-    var selected_time = selected_time
-}
+    var selected_time = selected_time 
+} //this checks if the user has selected a time and if not sets it to the current time
 
+$.ajax(settings).done(function (weather_data) {
+    console.log(weather_data);
+});
 </script>
 <style>
     .table {
@@ -84,11 +89,14 @@ else
         <li class="nav-item">
           <a class="nav-link" href="#">Guidance</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign up</a>
+        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+          <a class="nav-link" href="register.php">Sign up</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+          <a class="nav-link" href="login.php">Login</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Settings</a>
@@ -142,30 +150,30 @@ else
     <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
       <select class="form-select" name="time_selected" id="time_select">
-        <option value="0" <?php if($_SESSION["selected_time"] == "0"){ echo "selected='selected'"; }?> >00:00</option>
-        <option value="1" <?php if($_SESSION["selected_time"] == "1"){ echo "selected='selected'"; }?> >01:00</option>
-        <option value="2" <?php if($_SESSION["selected_time"] == "2"){ echo "selected='selected'"; }?> >02:00</option>
-        <option value="3" <?php if($_SESSION["selected_time"] == "3"){ echo "selected='selected'"; }?> >03:00</option>
-        <option value="4" <?php if($_SESSION["selected_time"] == "4"){ echo "selected='selected'"; }?> >04:00</option>
-        <option value="5" <?php if($_SESSION["selected_time"] == "5"){ echo "selected='selected'"; }?> >05:00</option>
-        <option value="6" <?php if($_SESSION["selected_time"] == "6"){ echo "selected='selected'"; }?> >06:00</option>
-        <option value="7" <?php if($_SESSION["selected_time"] == "7"){ echo "selected='selected'"; }?> >07:00</option>
-        <option value="8" <?php if($_SESSION["selected_time"] == "8"){ echo "selected='selected'"; }?> >08:00</option>
-        <option value="9" <?php if($_SESSION["selected_time"] == "9"){ echo "selected='selected'"; }?> >09:00</option>
-        <option value="10" <?php if($_SESSION["selected_time"] == "10"){ echo "selected='selected'"; }?> >10:00</option>
-        <option value="11" <?php if($_SESSION["selected_time"] == "11"){ echo "selected='selected'"; }?> >11:00</option>
-        <option value="12" <?php if($_SESSION["selected_time"] == "12"){ echo "selected='selected'"; }?> >12:00</option>
-        <option value="13" <?php if($_SESSION["selected_time"] == "13"){ echo "selected='selected'"; }?> >13:00</option>
-        <option value="14" <?php if($_SESSION["selected_time"] == "14"){ echo "selected='selected'"; }?> >14:00</option>
-        <option value="15" <?php if($_SESSION["selected_time"] == "15"){ echo "selected='selected'"; }?> >15:00</option>
-        <option value="16" <?php if($_SESSION["selected_time"] == "16"){ echo "selected='selected'"; }?> >16:00</option>
-        <option value="17" <?php if($_SESSION["selected_time"] == "17"){ echo "selected='selected'"; }?> >17:00</option>
-        <option value="18" <?php if($_SESSION["selected_time"] == "18"){ echo "selected='selected'"; }?> >18:00</option>
-        <option value="19" <?php if($_SESSION["selected_time"] == "19"){ echo "selected='selected'"; }?> >19:00</option>
-        <option value="20" <?php if($_SESSION["selected_time"] == "20"){ echo "selected='selected'"; }?> >20:00</option>
-        <option value="21" <?php if($_SESSION["selected_time"] == "21"){ echo "selected='selected'"; }?> >21:00</option>
-        <option value="22" <?php if($_SESSION["selected_time"] == "22"){ echo "selected='selected'"; }?> >22:00</option>
-        <option value="23" <?php if($_SESSION["selected_time"] == "23"){ echo "selected='selected'"; }?> >23:00</option> <!-- this is the time selection for the weather -->
+        <option value="0" <?php if($_SESSION['selected_time'] == "0"){ echo "selected='selected'"; }?> >00:00</option>
+        <option value="1" <?php if($_SESSION['selected_time'] == "1"){ echo "selected='selected'"; }?> >01:00</option>
+        <option value="2" <?php if($_SESSION['selected_time'] == "2"){ echo "selected='selected'"; }?> >02:00</option>
+        <option value="3" <?php if($_SESSION['selected_time'] == "3"){ echo "selected='selected'"; }?> >03:00</option>
+        <option value="4" <?php if($_SESSION['selected_time'] == "4"){ echo "selected='selected'"; }?> >04:00</option>
+        <option value="5" <?php if($_SESSION['selected_time'] == "5"){ echo "selected='selected'"; }?> >05:00</option>
+        <option value="6" <?php if($_SESSION['selected_time'] == "6"){ echo "selected='selected'"; }?> >06:00</option>
+        <option value="7" <?php if($_SESSION['selected_time'] == "7"){ echo "selected='selected'"; }?> >07:00</option>
+        <option value="8" <?php if($_SESSION['selected_time'] == "8"){ echo "selected='selected'"; }?> >08:00</option>
+        <option value="9" <?php if($_SESSION['selected_time'] == "9"){ echo "selected='selected'"; }?> >09:00</option>
+        <option value="10" <?php if($_SESSION['selected_time'] == "10"){ echo "selected='selected'"; }?> >10:00</option>
+        <option value="11" <?php if($_SESSION['selected_time'] == "11"){ echo "selected='selected'"; }?> >11:00</option>
+        <option value="12" <?php if($_SESSION['selected_time'] == "12"){ echo "selected='selected'"; }?> >12:00</option>
+        <option value="13" <?php if($_SESSION['selected_time'] == "13"){ echo "selected='selected'"; }?> >13:00</option>
+        <option value="14" <?php if($_SESSION['selected_time'] == "14"){ echo "selected='selected'"; }?> >14:00</option>
+        <option value="15" <?php if($_SESSION['selected_time'] == "15"){ echo "selected='selected'"; }?> >15:00</option>
+        <option value="16" <?php if($_SESSION['selected_time'] == "16"){ echo "selected='selected'"; }?> >16:00</option>
+        <option value="17" <?php if($_SESSION['selected_time'] == "17"){ echo "selected='selected'"; }?> >17:00</option>
+        <option value="18" <?php if($_SESSION['selected_time'] == "18"){ echo "selected='selected'"; }?> >18:00</option>
+        <option value="19" <?php if($_SESSION['selected_time'] == "19"){ echo "selected='selected'"; }?> >19:00</option>
+        <option value="20" <?php if($_SESSION['selected_time'] == "20"){ echo "selected='selected'"; }?> >20:00</option>
+        <option value="21" <?php if($_SESSION['selected_time'] == "21"){ echo "selected='selected'"; }?> >21:00</option>
+        <option value="22" <?php if($_SESSION['selected_time'] == "22"){ echo "selected='selected'"; }?> >22:00</option>
+        <option value="23" <?php if($_SESSION['selected_time'] == "23"){ echo "selected='selected'"; }?> >23:00</option> <!-- this is the time selection for the weather -->
       </select>
     </div>
     </form>
@@ -222,11 +230,11 @@ if (weather_data.alerts.alert.length != 0) { // this checks if there is any weat
     var weather_spacing = document.getElementById("weather_spacing");
     weather_spacing.style.marginTop = "0px";
     array_length = weather_data.alerts.alert.length;
-    for (var i = 0; i < weather_data.alerts.alert.length-1; i++) {
+    for (var i = 0; i < weather_data.alerts.alert.length; i++) {
         if (i == 0) {
             var alert_text = alert_text + weather_data.alerts.alert[i].headline + " for " + weather_location  + "<br>" ; //this changes the string to match the location of the weather and the warning for the first alert
         }
-        else if ((weather_data.alerts.alert[i].headline == weather_data.alerts.alert[i+1].headline) || (weather_data.alerts.alert[i].headline == weather_data.alerts.alert[0].headline)) {
+        else if ((weather_data.alerts.alert[i].headline == weather_data.alerts.alert[i].headline) || (weather_data.alerts.alert[i].headline == weather_data.alerts.alert[0].headline)) {
            continue;
         }
         else {
@@ -280,14 +288,14 @@ else if (weather_data.forecast.forecastday[0].hour[selected_time].air_quality["g
 else {
     air_quality.style.color = "white";
     air_quality.innerHTML = "Unknown";
-}
+} //this changes the air quality to match the air quality in the api
 });
 document.getElementById('time_select').onchange = function() {
     selected_time = time_select.value;
     document.getElementById("time_selection").submit();
-}
+} //this changes the time selected to match the time selected in the api
 function close_alert() {
     var weather_alert = document.getElementById("weather_alert");
     weather_alert.hidden = "hidden";
-}
+} //this hides the weather alert box
 </script>

@@ -1,4 +1,12 @@
 <?php
+session_start();
+$nav_hidden = "";
+$nav_unhidden = "hidden";
+if (isset($_SESSION["userid"])) {
+    $nav_hidden = "hidden";
+    $nav_unhidden = "";
+} //this is used to hide the sign up button if the user is logged in and to hide the logout button if the user is not logged in
+
 include 'Library/dbconnect.php';
 $conn = connect(); //this calls the connection function from the dbconnect.php file and returns the connection object to the variable $conn
 
@@ -24,14 +32,18 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
         <li class="nav-item">
           <a class="nav-link" href="#">Guidance</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign up</a>
+        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+          <a class="nav-link" href="register.php">Sign up</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+          <a class="nav-link" href="login.php">Login</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Settings</a>
+        
         </li>
       </ul>
     </div>
