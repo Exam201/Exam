@@ -56,6 +56,8 @@ if (isset($_POST['back_selected_day'])) {
     <link rel="Stylesheet" href="bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
     <script scr="bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
 </header>
 <script>
 var weather_location = "<?php echo "" . $_SESSION["set_location"]?>"
@@ -84,6 +86,33 @@ var selected_day = "<?php echo "" . $_SESSION['selected_day']?>" //this gets the
 
 $.ajax(settings).done(function (weather_data) {
     console.log(weather_data);
+});
+// this is the javascript to create the chart taken from the source in my log 
+anychart.onDocumentReady(function() {
+  $.ajax(settings).done(function (weather_data) {
+// set the data
+    var chart_data = [
+        {x: "Carbon Monoxide (CO)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.co},
+        {x: "Nitrogen Dioxide (NO2)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.no2},
+        {x: "Ozone (O3)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.o3},
+        {x: "Fine particulate matter (PM2.5)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.pm2_5},
+        {x: "Particulate Matter (PM10)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.pm10},
+        {x: "Sulfer Dioxide (SO2)", value: weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.so2}
+    ];
+    // create the chart
+    var chart = anychart.pie();
+
+    // set the chart title
+    chart.title("Amount of Air Pollution in micrograms per cubic meter of air (µg/m³)");
+
+    // add the data
+    chart.data(chart_data);
+
+    // display the chart in the container
+    chart.container('chart_container');
+    chart.draw();
+
+  });
 });
 </script>
 <style>
@@ -133,15 +162,10 @@ $.ajax(settings).done(function (weather_data) {
 <!-- start of main content -->
 <div>
     <h1 id="pagetitle" style="text-align: center; "></h1>
-    <form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
+    <form class="d-flex" style="margin-left: 80%;" action="air_quality.php" method="post"> 
         <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location/Postcode">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
     </form>
-    <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_alert()"></button>
-        <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
-        <p style="text-align: center;" id="weather_warning" class="mb-0"></p>
-    </div>
 </div>
 <div id="weather_spacing">
 <h2 style="text-align: center;">Day</h2>
@@ -149,31 +173,31 @@ $.ajax(settings).done(function (weather_data) {
 <div div class="d-flex justify-content-center">
   <ul class="pagination pagination-lg">
     <li class="page-item">
-    <form id="form_day_selection_backward" action="forecast.php" method="post">
+    <form id="form_day_selection_backward" action="air_quality.php" method="post">
     <button class="btn btn-primary">&laquo;</button>
     <input class="form-control" name="back_selected_day" type="hidden" value="-1">
     </form>
     </li>
     <li class="page-item active">
-    <form id="form_day_selection1" action="forecast.php" method="post">
+    <form id="form_day_selection1" action="air_quality.php" method="post">
     <button value="0" class="btn btn-primary">1</button>
     <input class="form-control" name="selected_day" type="hidden" value="0">
     </form>
     </li>
     <li class="page-item">
-    <form id="form_day_selection2" action="forecast.php" method="post">
+    <form id="form_day_selection2" action="air_quality.php" method="post">
       <button value="1" class="btn btn-primary">2</button>
       <input class="form-control" name="selected_day" type="hidden" value="1">
     </form>
     </li>
     <li class="page-item">
-    <form id="form_day_selection3" action="forecast.php" method="post">
+    <form id="form_day_selection3" action="air_quality.php" method="post">
       <button value="2" class="btn btn-primary">3</button>
       <input class="form-control" name="selected_day" type="hidden" value="2">
     </form>  
     </li>
     <li class="page-item">
-    <form id="form_day_selection_forward" action="forecast.php" method="post">
+    <form id="form_day_selection_forward" action="air_quality.php" method="post">
     <button class="btn btn-primary">&raquo;</button>
     <input class="form-control" name="forward_selected_day" type="hidden" value="1">
     </form>
@@ -181,7 +205,7 @@ $.ajax(settings).done(function (weather_data) {
   </ul>
 </form>
 </div>
-<form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
+<form class="d-flex" name="time_selection" id="time_selection" action="air_quality.php" method="post"> 
     <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
       <select class="form-select" name="time_selected" id="time_select">
@@ -216,36 +240,41 @@ $.ajax(settings).done(function (weather_data) {
     </form>
   <div class="row">
     <div class="col">
-    <div style="margin-top: 4%;">
-        <h2 id="weather_description"></h2>
-        <img id="weather_icon" src="" alt="" style="width: 150px; height: 150px;">
+    <div>
+        <h2 id="air_quality"></h2>
+        <div id="chart_container"></div>
     </div>
     </div>
     <div class="col">
-    <table class="table" style="width: 100%;">
+    <table class="table" style="width: 100%; margin-top: 7%;">
+    <thead>
+    <tr>
+    <th scope="col">Pollutant</th>
+    <th scope="col">Amount µg/m³</th>
+    </tr>
     <tbody>
     <tr>
-      <th scope="row">Temperature</th>
-      <td id="temperature"></td>
+    <th scope="row">Carbon Monoxide (CO)</th>
+    <td id="co3_levels"></td>
     </tr>
     <tr>
-    <th scope="row">Humidity</th>
-    <td id="humidity"></td>
+    <th scope="row">Nitrogen Dioxide (NO2)</th>
+    <td id="no2_levels"></td>
+    </tr>
+    <th scope="row">Ozone (O3)</th>
+    <td id="o3_levels"></td>
     </tr>
     <tr>
-    <th scope="row">Wind Speed</th>
-    <td id="wind_speed"></td>
+    <th scope="row">Fine particulate matter (PM2.5)</th>
+    <td id="pm2_5_levels"></td>
     </tr>
     <tr>
-    <th scope="row">Maximum Gusts</th>
-    <td id="maximum_gusts"></td>
-    </tr>
-    <th scope="row">Chance of rain</th>
-    <td id="rain_chance"></td>
+    <th scope="row">Particulate matter (PM10)</th>
+    <td id="pm10_levels"></td>
     </tr>
     <tr>
-    <th scope="row">Air Quality</th>
-    <td id="air_quality"></td>
+    <th scope="row">Sulphur Dioxide (SO2)</th>
+    <td id="so2_levels"></td>
     </tr>
     </tbody>
     </table>
@@ -253,74 +282,78 @@ $.ajax(settings).done(function (weather_data) {
     </div>
   </div>
 </div>
-
+<div style="margin-top: 5%;">
+<div id="guidance_alert" class="alert alert-dismissible alert-success">
+  <h4 id="guidance_alert_heading" class="alert-heading" style="text-align: center;"></h4>
+  <p id="guidance_alert_text" class="mb-0" style="text-align: center;"></p>
+</div>
+</div>
 
 <script>
-    var pagetitle = document.getElementById("pagetitle");
-    pagetitle.innerHTML = "Forecast for " + weather_location; //this changes the heading of the page to match the location of the weather
+var pagetitle = document.getElementById("pagetitle");
+pagetitle.innerHTML = "Air Quality for " + weather_location; //this changes the heading of the page to match the location of the air quality
 $.ajax(settings).done(function (weather_data) {
-    var weather_warning = document.getElementById("weather_warning");
-    var alert_text = "";
-if (weather_data.alerts.alert.length != 0) { // this checks if there is any weather warnings in the api array
-    var weather_alert = document.getElementById("weather_alert"); //if there is no warnings this hides the warning box
-    weather_alert.hidden = "";
-    var weather_spacing = document.getElementById("weather_spacing");
-    weather_spacing.style.marginTop = "0px";
-    array_length = weather_data.alerts.alert.length;
-    for (var i = 0; i < weather_data.alerts.alert.length; i++) {
-        if (i == 0) {
-            var alert_text = alert_text + weather_data.alerts.alert[i].headline + " for " + weather_location  + "<br>" ; //this changes the string to match the location of the weather and the warning for the first alert
-        }
-        else if ((weather_data.alerts.alert[i].headline == weather_data.alerts.alert[i].headline) || (weather_data.alerts.alert[i].headline == weather_data.alerts.alert[0].headline)) {
-           continue;
-        }
-        else {
-            var alert_text = alert_text + weather_data.alerts.alert[i].headline + " for " + weather_location  + "<br>" ; //this changes the string to match the location of the weather and the warning
-        }
-        }
-    }
-    
-var weather_icon= document.getElementById("weather_icon");
-weather_icon.src = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.icon; //this changes the weather icon to match the weather
-weather_icon.alt = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.text; //this changes the weather icon alt text to match the weather
-weather_warning.innerHTML = alert_text; //this changes the warning to match the warning
-var temperature = document.getElementById("temperature");
-temperature.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].temp_c + "°C"; //this changes the temperature to match the temperaturein the api
-var humidity = document.getElementById("humidity");
-humidity.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].humidity + "%"; //this changes the humidity to match the humidity in the api
-var wind_speed = document.getElementById("wind_speed");
-wind_speed.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].wind_mph + " miles/h"; //this changes the wind speed to match the wind speed in the api
-var maximum_gusts = document.getElementById("maximum_gusts");
-maximum_gusts.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].gust_mph + " miles/h"; //this changes the maximum gusts to match the maximum gusts in the api
-var air_quality = document.getElementById("air_quality");
-var rain_chance = document.getElementById("rain_chance");
-rain_chance.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].chance_of_rain + "%"; //this changes the chance of rain to match the chance of rain in the api
-var weather_description = document.getElementById("weather_description");
-weather_description.innerHTML = weather_data.forecast.forecastday[selected_day].hour[selected_time].condition.text; //this changes the weather description to match the weather description in the api
+var co3_levels = document.getElementById("co3_levels");
+co3_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.co * 10) / 10 + " µg/m³"; //this changes the CO2 levels to match the CO2 levels in the api
+var no2_levels = document.getElementById("no2_levels");
+no2_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.no2 * 10) / 10 + " µg/m³"; //this changes the Nitrogen Dioxide (NO2) to match the Nitrogen Dioxide (NO2) in the api
+var o3_levels = document.getElementById("o3_levels");
+o3_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.o3 * 10) / 10 + " µg/m³"; //this changes the Ozone (O3) to match the Ozone (O3) in the api
+var pm2_5_levels = document.getElementById("pm2_5_levels");
+pm2_5_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.pm2_5 * 10) / 10 + " µg/m³"; //this changes the Fine particulate matter (PM2.5) to match the Fine particulate matter (PM2.5) in the api
+var pm10_levels = document.getElementById("pm10_levels");
+pm10_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.pm10 * 10) / 10 + " µg/m³"; //this changes the Particulate matter (PM10) to match the Particulate matter (PM10) in the api
+var so2_levels = document.getElementById("so2_levels");
+so2_levels.innerHTML = Math.round(weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality.so2 * 10) / 10 + " µg/m³"; //this changes the Sulphur Dioxide (SO2) to match the Sulphur Dioxide (SO2) in the api
 
-if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <+ 3){
+
+
+var air_quality = document.getElementById("air_quality");
+var guidance_alert = document.getElementById("guidance_alert");
+var guidance_alert_heading = document.getElementById("guidance_alert_heading");
+var guidance_alert_text = document.getElementById("guidance_alert_text");
+if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 3){
     air_quality.style.color = "green";
-    air_quality.innerHTML = "Good";
+    air_quality.innerHTML = "The Air Quality is Good";
+    guidance_alert.classList.add("alert-success");
+    guidance_alert_heading.innerHTML = "Good Air Quality";
+    guidance_alert_text.innerHTML = "Air quality is considered satisfactory, and air pollution poses little or no risk, you are safe to go outside and exercise/do daily activities.";
+
 }
 else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 4){
     air_quality.style.color = "yellow";
-    air_quality.innerHTML = "Moderate";
+    air_quality.innerHTML = "The Air Quality is Moderate";
+    guidance_alert.classList.add("alert-warning");
+    guidance_alert_heading.innerHTML = "Moderate Air Quality";
+    guidance_alert_text.innerHTML = "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution. You are safe to go outside and exercise/do daily activities.";
 }
 else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 6){
     air_quality.style.color = "orange";
-    air_quality.innerHTML = "Unhealthy for Sensitive Groups";
+    air_quality.innerHTML = "The Air Quality is Unhealthy for Sensitive Groups";
+    guidance_alert.classList.add("alert-warning");
+    guidance_alert_heading.innerHTML = "Unhealthy for Sensitive Groups";
+    guidance_alert_text.innerHTML = "Members of sensitive groups may experience health effects. The general public is less likely to be affected. Most people are safe to go outside and exercise/do daily activities.";
 }
 else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 7){
     air_quality.style.color = "red";
-    air_quality.innerHTML = "Unhealthy";
+    air_quality.innerHTML = "The Air Quality is Unhealthy";
+    guidance_alert.classList.add("alert-danger");
+    guidance_alert_heading.innerHTML = "Unhealthy Air Quality";
+    guidance_alert_text.innerHTML = "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects. Going outside and exercising/do daily activities is not recommended and may put you at risk of health problems.";
 }
 else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 9){
     air_quality.style.color = "purple";
-    air_quality.innerHTML = "Very Unhealthy";
+    air_quality.innerHTML = "The Air Quality is Very Unhealthy";
+    guidance_alert.classList.add("alert-danger");
+    guidance_alert_heading.innerHTML = "Very Unhealthy Air Quality";
+    guidance_alert_text.innerHTML = "Health warnings of emergency conditions. The entire population is more likely to be affected. Do not go out and exposure yourself for long periods of time without protection. If you have to go outside, protect yourself from the air pollution.";
 }
 else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air_quality["gb-defra-index"] <= 10){
     air_quality.style.color = "maroon";
-    air_quality.innerHTML = "Hazardous";
+    air_quality.innerHTML = "The Air Quality is Hazardous";
+    guidance_alert.classList.add("alert-danger");
+    guidance_alert_heading.innerHTML = "Hazardous Air Quality";
+    guidance_alert_text.innerHTML = "Health alert: everyone may experience more serious health effects. Do not go outside and exercise/do daily activities. If you have to go outside, protect yourself from the air pollution and minimise your exposure to the air pollution.";
 }
 else {
     air_quality.style.color = "white";
@@ -331,18 +364,4 @@ document.getElementById('time_select').onchange = function() {
     selected_time = time_select.value;
     document.getElementById("time_selection").submit();
 } //this changes the time selected to match the time selected in the api
-function close_alert() {
-    var weather_alert = document.getElementById("weather_alert");
-    weather_alert.hidden = "hidden";
-} //this hides the weather alert box
-function day_forward() {
-    selected_day = parseInt(selected_day);
-    if (selected_day == 2) {
-        selected_day = 0;
-    }
-    else {
-        selected_day = selected_day + 1;
-    }
-
-} //this changes the day forward to match the day forward in the api
 </script>
