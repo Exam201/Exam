@@ -120,6 +120,9 @@ $.ajax(settings).done(function (weather_data) {
             <a class="nav-link" href="login.php">Login</a>
           </li>
           <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
+          </li>
+          <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
             <a class="nav-link" href="logout.php">Logout</a>
           </li>
           <li class="nav-item">

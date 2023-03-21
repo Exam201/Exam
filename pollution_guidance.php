@@ -27,7 +27,7 @@ body {
     margin: 20px;
     border-radius: 10px;
 }
-p, li {
+#text_size{
     font-size: 20px;
 }
 </style>
@@ -57,6 +57,9 @@ p, li {
         </li>
         <li class="nav-item" <?php echo "$nav_hidden"; ?> >
           <a class="nav-link" href="login.php">Login</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
         </li>
         <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
           <a class="nav-link" href="logout.php">Logout</a>
@@ -106,27 +109,29 @@ p, li {
                         </div>
                     </div>
                 </div>
-                <p>There are many different types of pollution, pollution is the introduction of contaminants into the natural environment that cause adverse change. Pollution can take the form of chemical substances or energy, such as noise, heat or light. Pollutants, the components of pollution, can be either foreign substances/energies or naturally occurring contaminants.</p>
-                <P>Air pollution can be caused by a number of different things all of which can have a negative impact on your health.</P>
-                <p>sulphur dioxide, nitrogen dioxide, carbon monoxide, ozone, particulate matter, are all pollutants that can be found in the air. These pollutants can cause a number of different health problems, such as:</p>
-                <ul>
-                    <li>Respiratory problems</li>
-                    <li>Heart problems</li>
-                    <li>Stroke</li>
-                    <li>Chronic bronchitis</li>
-                    <li>Emphysema</li>
-                    <li>Increased risk of lung cancer</li>
-                    <li>Increased risk of heart disease</li>
-                    <li>Increased risk of stroke</li>
-                    <li>Increased risk of asthma</li>
-                    <li>Increased risk of chronic bronchitis</li>
-                    <li>Increased risk of emphysema</li>
-                    <li>Increased risk of lung cancer</li>
-                </ul>
-                <p>Air pollution can also affact many pre existing health conditions such as asthma and other respirtory conditions.</p>
-                <p>In some cases its hard to avoid air pollution, but it is still important to be aware of the air quality in your area. If you are able to avoid air pollution then you should try to do so. If you are unable to avoid air pollution then you should try to limit your exposure to it as much as possible.</p>
-                <p>Follow guidance from your local government and health authorities to help you stay safe.</p>
-                <p>For more information on air pollution and how it can affect your health, please visit the <a href="https://www.gov.uk/government/publications/health-matters-air-pollution/health-matters-air-pollution">Public Health England Website</a>.</p>
+                <div class="container" id = "text_size">
+                  <p>There are many different types of pollution, pollution is the introduction of contaminants into the natural environment that cause adverse change. Pollution can take the form of chemical substances or energy, such as noise, heat or light. Pollutants, the components of pollution, can be either foreign substances/energies or naturally occurring contaminants.</p>
+                  <P>Air pollution can be caused by a number of different things all of which can have a negative impact on your health.</P>
+                  <p>sulphur dioxide, nitrogen dioxide, carbon monoxide, ozone, particulate matter, are all pollutants that can be found in the air. These pollutants can cause a number of different health problems, such as:</p>
+                  <ul>
+                      <li>Respiratory problems</li>
+                      <li>Heart problems</li>
+                      <li>Stroke</li>
+                      <li>Chronic bronchitis</li>
+                      <li>Emphysema</li>
+                      <li>Increased risk of lung cancer</li>
+                      <li>Increased risk of heart disease</li>
+                      <li>Increased risk of stroke</li>
+                      <li>Increased risk of asthma</li>
+                      <li>Increased risk of chronic bronchitis</li>
+                      <li>Increased risk of emphysema</li>
+                      <li>Increased risk of lung cancer</li>
+                  </ul>
+                  <p>Air pollution can also affact many pre existing health conditions such as asthma and other respirtory conditions.</p>
+                  <p>In some cases its hard to avoid air pollution, but it is still important to be aware of the air quality in your area. If you are able to avoid air pollution then you should try to do so. If you are unable to avoid air pollution then you should try to limit your exposure to it as much as possible.</p>
+                  <p>Follow guidance from your local government and health authorities to help you stay safe.</p>
+                  <p>For more information on air pollution and how it can affect your health, please visit the <a href="https://www.gov.uk/government/publications/health-matters-air-pollution/health-matters-air-pollution">Public Health England Website</a>.</p>
+                </div>
             </div>
         </div>
     </div>

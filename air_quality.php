@@ -28,7 +28,6 @@ if (isset($_POST["time_selected"])) {
 
 if (!isset($_SESSION["selected_day"])) {
     $_SESSION["selected_day"] = 0;
-    echo "!";
 } //this checks if the user has set a day else sets it to 0 (current day)
 
 if (isset($_POST['selected_day'])) {
@@ -149,6 +148,9 @@ anychart.onDocumentReady(function() {
           <a class="nav-link" href="login.php">Login</a>
         </li>
         <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
           <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
@@ -203,7 +205,7 @@ anychart.onDocumentReady(function() {
     </form>
     </li>
   </ul>
-</form>
+</form> <!-- this is the day selection for the weather -->
 </div>
 <form class="d-flex" name="time_selection" id="time_selection" action="air_quality.php" method="post"> 
     <div class="form-group">
@@ -276,7 +278,7 @@ anychart.onDocumentReady(function() {
     <th scope="row">Sulphur Dioxide (SO2)</th>
     <td id="so2_levels"></td>
     </tr>
-    </tbody>
+    </tbody> <!-- this is the table of air quality data -->
     </table>
     </div>
     </div>

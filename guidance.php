@@ -27,7 +27,7 @@ body {
     margin: 20px;
     border-radius: 10px;
 }
-p, li {
+#text_size{
     font-size: 20px;
 }
 </style>
@@ -59,6 +59,9 @@ p, li {
           <a class="nav-link" href="login.php">Login</a>
         </li>
         <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
           <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
@@ -82,7 +85,7 @@ p, li {
                         <div class="col-6 col-md-4">
                             <ul class="pagination" style="float:right;">
                                 <li class="page-item">
-                                  <a class="page-link" href="#">&laquo;</a>
+                                  <a class="page-link" href="enviromental_conditions.php">&laquo;</a>
                                 </li>
                                 <li class="page-item active">
                                   <a class="page-link" href="guidance.php">1</a>
@@ -106,6 +109,7 @@ p, li {
                         </div>
                     </div>
                 </div>
+                <div class="container" id = "text_size">
                 <p>Why does weather matter?</p>
                 <p>Weather huge impact on our health, and it is important to be aware of the weather conditions and how they can affect our health.</P>
                 <p>Weather can cause us to feel unwell, and it can also cause us to be more vulnerable to other illnesses and it can cause us to be more vulnerable to accidents and injuries.</p>
@@ -118,6 +122,7 @@ p, li {
                     <li><a href="enviromental_conditions.php">Enviromental health conditons and Seasonal allergies</a></li>
                 </ol>
                 <p>these can also be accessed from the pagenation at the top of the page.</p>
+                </div>
             </div>
           </div>
         </div>

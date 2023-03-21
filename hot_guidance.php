@@ -27,7 +27,7 @@ body {
     margin: 20px;
     border-radius: 10px;
 }
-p, li {
+#text_size{
     font-size: 20px;
 }
 </style>
@@ -57,6 +57,9 @@ p, li {
         </li>
         <li class="nav-item" <?php echo "$nav_hidden"; ?> >
           <a class="nav-link" href="login.php">Login</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
         </li>
         <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
           <a class="nav-link" href="logout.php">Logout</a>
@@ -106,28 +109,30 @@ p, li {
                         </div>
                     </div>
                 </div>
-                <p>How does hot weather affect us?</p>
-                <p>Hot weather can be dangerous, especially for older people, young children and people with long-term health conditions. It can also be a problem for people who work outdoors.</p>
-                <p>Hot weather can lead to heat exhaustion and heatstroke. Heat exhaustion is a milder form of heatstroke. It can cause dizziness, nausea, headaches and fainting. Heatstroke is a serious condition that can lead to organ failure and even death. It can cause confusion, seizures, vomiting and collapse.</p>
-                <br>
-                <p>How can I protect myself from the heat?</p>
-                <p>There are a number of things you can do to protect yourself from the heat. These include:</p>
-                <ul>
-                    <li>Drink plenty of fluids, especially water. Avoid alcohol and caffeine, which can make you dehydrated.</li>
-                    <li>Try to stay in the shade as much as possible.</li>
-                    <li>Wear loose, light clothing.</li>
-                    <li>Try to avoid going out in the hottest part of the day, between 11am and 3pm.</li>
-                    <li>Avoid strenuous exercise in the heat.</li>
-                    <li>Keep your home cool. Close curtains and blinds to keep out the sun. Open windows at night to let in cooler air.</li>
-                    <li>Check on elderly or vulnerable neighbours and relatives to make sure they are keeping cool.</li>
-                </ul>
-                <p>What should I do if I think someone is suffering from heat exhaustion or heatstroke?</p>
-                <p>If you think someone is suffering from heat exhaustion or heatstroke, call 999 immediately. If you are alone with the person, try to cool them down by moving them to a cool place and giving them water to drink. If they are conscious, give them small sips of water.</p>
-                <p>Click on the links below to find out more.</p>
-                <ul>
-                    <li><a href="https://www.nhs.uk/live-well/seasonal-health/heatwave-how-to-cope-in-hot-weather/">NHS</a></li>
-                    <li><a href="https://www.metoffice.gov.uk/weather/warnings-and-advice/seasonal-advice/health-wellbeing/hot-weather-and-its-impacts">Met office</a></li>
-                </ul>
+                <div class="container" id = "text_size">
+                    <p>How does hot weather affect us?</p>
+                    <p>Hot weather can be dangerous, especially for older people, young children and people with long-term health conditions. It can also be a problem for people who work outdoors.</p>
+                    <p>Hot weather can lead to heat exhaustion and heatstroke. Heat exhaustion is a milder form of heatstroke. It can cause dizziness, nausea, headaches and fainting. Heatstroke is a serious condition that can lead to organ failure and even death. It can cause confusion, seizures, vomiting and collapse.</p>
+                    <br>
+                    <p>How can I protect myself from the heat?</p>
+                    <p>There are a number of things you can do to protect yourself from the heat. These include:</p>
+                    <ul>
+                        <li>Drink plenty of fluids, especially water. Avoid alcohol and caffeine, which can make you dehydrated.</li>
+                        <li>Try to stay in the shade as much as possible.</li>
+                        <li>Wear loose, light clothing.</li>
+                        <li>Try to avoid going out in the hottest part of the day, between 11am and 3pm.</li>
+                        <li>Avoid strenuous exercise in the heat.</li>
+                        <li>Keep your home cool. Close curtains and blinds to keep out the sun. Open windows at night to let in cooler air.</li>
+                        <li>Check on elderly or vulnerable neighbours and relatives to make sure they are keeping cool.</li>
+                    </ul>
+                    <p>What should I do if I think someone is suffering from heat exhaustion or heatstroke?</p>
+                    <p>If you think someone is suffering from heat exhaustion or heatstroke, call 999 immediately. If you are alone with the person, try to cool them down by moving them to a cool place and giving them water to drink. If they are conscious, give them small sips of water.</p>
+                    <p>Click on the links below to find out more.</p>
+                    <ul>
+                        <li><a href="https://www.nhs.uk/live-well/seasonal-health/heatwave-how-to-cope-in-hot-weather/">NHS</a></li>
+                        <li><a href="https://www.metoffice.gov.uk/weather/warnings-and-advice/seasonal-advice/health-wellbeing/hot-weather-and-its-impacts">Met office</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

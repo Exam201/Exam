@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION["userid"])) {
+    header('location: login.php');
+}
 $nav_hidden = "";
 $nav_unhidden = "hidden";
 if (isset($_SESSION["userid"])) {

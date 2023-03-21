@@ -27,7 +27,7 @@ body {
     margin: 20px;
     border-radius: 10px;
 }
-p, li {
+#text_size{
     font-size: 20px;
 }
 </style>
@@ -57,6 +57,9 @@ p, li {
         </li>
         <li class="nav-item" <?php echo "$nav_hidden"; ?> >
           <a class="nav-link" href="login.php">Login</a>
+        </li>
+        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+          <a class="nav-link" href="fitness_tracker.php">Fitness Tracker</a>
         </li>
         <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
           <a class="nav-link" href="logout.php">Logout</a>
@@ -106,31 +109,33 @@ p, li {
                         </div>
                     </div>
                 </div>
-                <p>How does cold weather effect us?</p>
-                <p>Cold temperatures have a huge impact on our health, as we get older it becomes harder for our bodies to detect how cold we are, and it takes longer to warm up which can be bad for our health. 
-                    For older people in particular, the longer you are exposed to the cold, the higher the chance of heart attacks, strokes, pneumonia, depression, worsening arthritis and there is an increased risk of accidents at home.
-                </p>
-                <p>How can we stay healthy in the cold?</p>
-                <p>There are a few things you can do to help you stay healthy in the cold.</p>
-                <ul>
-                    <li>Keep warm</li>
-                    <li>Keep active</li>
-                    <li>Keep in touch</li>
-                </ul>
-                <p>Keeping warm by using layers of clothing and being active is the first line of defence against cold weather, by keeping warm you mitigate lots of potential risk.</p>
-                <p>Keeping active is important for your health and wellbeing. It can help you to stay warm and keep your muscles and joints flexible. It can also help you to feel more positive and less stressed.</p>
-                <p>Keeping in touch with friends and family is important because it means if anything happens the likely hood someone notices and can help or get help is higher. It can also can help you to feel less lonely and isolated. </p>
-                <p>Where can I find more information?</p>
-                <p>There are many places you can find more information about staying healthy in the cold.</p>
-                <p>Here is a video from the NHS about staying healthy in the cold.</p>
-                <iframe allow="fullscreen;" width="500" height="445"
-                    src="https://www.youtube.com/embed/VJibTZQS3Vk">
-                </iframe>
-                <p>Click on the links below to find out more.</p>
-                <ul>
-                    <li><a href="https://www.nhs.uk/live-well/seasonal-health/keep-warm-keep-well/">NHS</a></li>
-                    <li><a href="https://www.metoffice.gov.uk/weather/warnings-and-advice/seasonal-advice/health-wellbeing/stay-well-in-winter">Met office</a></li>
-                </ul>
+                <div class="container" id = "text_size">
+                  <p>How does cold weather effect us?</p>
+                  <p>Cold temperatures have a huge impact on our health, as we get older it becomes harder for our bodies to detect how cold we are, and it takes longer to warm up which can be bad for our health. 
+                      For older people in particular, the longer you are exposed to the cold, the higher the chance of heart attacks, strokes, pneumonia, depression, worsening arthritis and there is an increased risk of accidents at home.
+                  </p>
+                  <p>How can we stay healthy in the cold?</p>
+                  <p>There are a few things you can do to help you stay healthy in the cold.</p>
+                  <ul>
+                      <li>Keep warm</li>
+                      <li>Keep active</li>
+                      <li>Keep in touch</li>
+                  </ul>
+                  <p>Keeping warm by using layers of clothing and being active is the first line of defence against cold weather, by keeping warm you mitigate lots of potential risk.</p>
+                  <p>Keeping active is important for your health and wellbeing. It can help you to stay warm and keep your muscles and joints flexible. It can also help you to feel more positive and less stressed.</p>
+                  <p>Keeping in touch with friends and family is important because it means if anything happens the likely hood someone notices and can help or get help is higher. It can also can help you to feel less lonely and isolated. </p>
+                  <p>Where can I find more information?</p>
+                  <p>There are many places you can find more information about staying healthy in the cold.</p>
+                  <p>Here is a video from the NHS about staying healthy in the cold.</p>
+                  <iframe allow="fullscreen;" width="500" height="445"
+                      src="https://www.youtube.com/embed/VJibTZQS3Vk">
+                  </iframe>
+                  <p>Click on the links below to find out more.</p>
+                  <ul>
+                      <li><a href="https://www.nhs.uk/live-well/seasonal-health/keep-warm-keep-well/">NHS</a></li>
+                      <li><a href="https://www.metoffice.gov.uk/weather/warnings-and-advice/seasonal-advice/health-wellbeing/stay-well-in-winter">Met office</a></li>
+                  </ul>
+                </div>
             </div>
         </div>
     </div>
