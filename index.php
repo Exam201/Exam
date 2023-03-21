@@ -11,10 +11,14 @@ include 'Library/dbconnect.php';
 $conn = connect(); //this calls the connection function from the dbconnect.php file and returns the connection object to the variable $conn
 
 ?>
+<doctype html>
+<html>
 <header>
+<title>Home</title>
 <link rel="Stylesheet" href="bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
 <script scr="bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script>
-<header>
+</header>
+<body>
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
@@ -32,7 +36,7 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
           <a class="nav-link" href="air_quality.php">Air Quality</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Guidance</a>
+          <a class="nav-link" href="guidance.php">Guidance</a>
         </li>
         <li class="nav-item" <?php echo "$nav_hidden"; ?> >
           <a class="nav-link" href="register.php">Sign up</a>
@@ -45,10 +49,11 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Settings</a>
-        
         </li>
       </ul>
     </div>
   </div>
 </nav>
 <!-- end navbar -->
+</body>
+</html>

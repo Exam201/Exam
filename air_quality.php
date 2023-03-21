@@ -140,7 +140,7 @@ anychart.onDocumentReady(function() {
           <a class="nav-link" href="air_quality.php">Air Quality</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Guidance</a>
+          <a class="nav-link" href="guidance.php">Guidance</a>
         </li>
         <li class="nav-item" <?php echo "$nav_hidden"; ?> >
           <a class="nav-link" href="register.php">Sign up</a>
@@ -286,7 +286,7 @@ anychart.onDocumentReady(function() {
 <div id="guidance_alert" class="alert alert-dismissible alert-success">
   <h4 id="guidance_alert_heading" class="alert-heading" style="text-align: center;"></h4>
   <p id="guidance_alert_text" class="mb-0" style="text-align: center;"></p>
-</div>
+</div> <!-- this is the guidance alert -->
 </div>
 
 <script>
@@ -353,7 +353,7 @@ else if (weather_data.forecast.forecastday[selected_day].hour[selected_time].air
     air_quality.innerHTML = "The Air Quality is Hazardous";
     guidance_alert.classList.add("alert-danger");
     guidance_alert_heading.innerHTML = "Hazardous Air Quality";
-    guidance_alert_text.innerHTML = "Health alert: everyone may experience more serious health effects. Do not go outside and exercise/do daily activities. If you have to go outside, protect yourself from the air pollution and minimise your exposure to the air pollution.";
+    guidance_alert_text.innerHTML = "Health alert: everyone may experience more serious health effects. Do not go outside and exercise/do daily activities. If you have to go outside, protect yourself from the air pollution and minimise your exposure to the air pollution wherever possible.";
 }
 else {
     air_quality.style.color = "white";

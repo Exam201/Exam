@@ -53,10 +53,10 @@ if (isset($_SESSION['email_error'])) {
           <a class="nav-link" href="forecast.php">Forecast</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Air Quality</a>
+          <a class="nav-link" href="air_quality.php">Air Quality</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Guidance</a>
+          <a class="nav-link" href="guidance.php">Guidance</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="register.php">Sign up</a>

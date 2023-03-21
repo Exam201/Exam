@@ -94,170 +94,170 @@ $.ajax(settings).done(function (weather_data) {
     }
 </style>
 <body>
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <img src="images/placeholder.png" alt="logo" style="width:75px; height:50px; padding-right: 10px;">
-    <a class="navbar-brand" href="index.php">Health Advice Group</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="forecast.php">Forecast</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="air_quality.php">Air Quality</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Guidance</a>
-        </li>
-        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
-          <a class="nav-link" href="register.php">Sign up</a>
-        </li>
-        <li class="nav-item" <?php echo "$nav_hidden"; ?> >
-          <a class="nav-link" href="login.php">Login</a>
-        </li>
-        <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
-          <a class="nav-link" href="logout.php">Logout</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Settings</a>
-        </li>
-      </ul>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <img src="images/placeholder.png" alt="logo" style="width:75px; height:50px; padding-right: 10px;">
+      <a class="navbar-brand" href="index.php">Health Advice Group</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="forecast.php">Forecast</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="air_quality.php">Air Quality</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="guidance.php">Guidance</a>
+          </li>
+          <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+            <a class="nav-link" href="register.php">Sign up</a>
+          </li>
+          <li class="nav-item" <?php echo "$nav_hidden"; ?> >
+            <a class="nav-link" href="login.php">Login</a>
+          </li>
+          <li class="nav-item" <?php echo "$nav_unhidden"; ?> >
+            <a class="nav-link" href="logout.php">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Settings</a>
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+  <!-- end navbar -->
+  <!-- start of main content -->
+  <div>
+      <h1 id="page_title" style="text-align: center; "></h1>
+      <form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
+          <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location/Postcode">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
+      </form>
+      <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
+          <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_alert()"></button>
+          <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
+          <p style="text-align: center;" id="weather_warning" class="mb-0"></p>
+      </div>
   </div>
-</nav>
-<!-- end navbar -->
-<!-- start of main content -->
-<div>
-    <h1 id="pagetitle" style="text-align: center; "></h1>
-    <form class="d-flex" style="margin-left: 80%;" action="forecast.php" method="post"> 
-        <input class="form-control me-sm-2" name="set_location" type="search" placeholder="Search Location/Postcode">
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
-    </form>
-    <div id="weather_alert" hidden class="alert alert-dismissible alert-warning">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="close_alert()"></button>
-        <h4 style="text-align: center;" class="alert-heading">Warning!</h4>
-        <p style="text-align: center;" id="weather_warning" class="mb-0"></p>
-    </div>
-</div>
-<div id="weather_spacing">
-<h2 style="text-align: center;">Day</h2>
-<div class="container">
-<div div class="d-flex justify-content-center">
-  <ul class="pagination pagination-lg">
-    <li class="page-item">
-    <form id="form_day_selection_backward" action="forecast.php" method="post">
-    <button class="btn btn-primary">&laquo;</button>
-    <input class="form-control" name="back_selected_day" type="hidden" value="-1">
-    </form>
-    </li>
-    <li class="page-item active">
-    <form id="form_day_selection1" action="forecast.php" method="post">
-    <button value="0" class="btn btn-primary">1</button>
-    <input class="form-control" name="selected_day" type="hidden" value="0">
-    </form>
-    </li>
-    <li class="page-item">
-    <form id="form_day_selection2" action="forecast.php" method="post">
-      <button value="1" class="btn btn-primary">2</button>
-      <input class="form-control" name="selected_day" type="hidden" value="1">
-    </form>
-    </li>
-    <li class="page-item">
-    <form id="form_day_selection3" action="forecast.php" method="post">
-      <button value="2" class="btn btn-primary">3</button>
-      <input class="form-control" name="selected_day" type="hidden" value="2">
-    </form>  
-    </li>
-    <li class="page-item">
-    <form id="form_day_selection_forward" action="forecast.php" method="post">
-    <button class="btn btn-primary">&raquo;</button>
-    <input class="form-control" name="forward_selected_day" type="hidden" value="1">
-    </form>
-    </li>
-  </ul>
-</form>
-</div>
-<form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
-    <div class="form-group">
-      <label for="time_select" class="form-label mt-4">Time</label>
-      <select class="form-select" name="time_selected" id="time_select">
-        <!-- this is the time selection for the weather -->
-        <option value="0" <?php if($_SESSION['selected_time'] == "0"){ echo "selected='selected'"; }?> >00:00</option>
-        <option value="1" <?php if($_SESSION['selected_time'] == "1"){ echo "selected='selected'"; }?> >01:00</option>
-        <option value="2" <?php if($_SESSION['selected_time'] == "2"){ echo "selected='selected'"; }?> >02:00</option>
-        <option value="3" <?php if($_SESSION['selected_time'] == "3"){ echo "selected='selected'"; }?> >03:00</option>
-        <option value="4" <?php if($_SESSION['selected_time'] == "4"){ echo "selected='selected'"; }?> >04:00</option>
-        <option value="5" <?php if($_SESSION['selected_time'] == "5"){ echo "selected='selected'"; }?> >05:00</option>
-        <option value="6" <?php if($_SESSION['selected_time'] == "6"){ echo "selected='selected'"; }?> >06:00</option>
-        <option value="7" <?php if($_SESSION['selected_time'] == "7"){ echo "selected='selected'"; }?> >07:00</option>
-        <option value="8" <?php if($_SESSION['selected_time'] == "8"){ echo "selected='selected'"; }?> >08:00</option>
-        <option value="9" <?php if($_SESSION['selected_time'] == "9"){ echo "selected='selected'"; }?> >09:00</option>
-        <option value="10" <?php if($_SESSION['selected_time'] == "10"){ echo "selected='selected'"; }?> >10:00</option>
-        <option value="11" <?php if($_SESSION['selected_time'] == "11"){ echo "selected='selected'"; }?> >11:00</option>
-        <option value="12" <?php if($_SESSION['selected_time'] == "12"){ echo "selected='selected'"; }?> >12:00</option>
-        <option value="13" <?php if($_SESSION['selected_time'] == "13"){ echo "selected='selected'"; }?> >13:00</option>
-        <option value="14" <?php if($_SESSION['selected_time'] == "14"){ echo "selected='selected'"; }?> >14:00</option>
-        <option value="15" <?php if($_SESSION['selected_time'] == "15"){ echo "selected='selected'"; }?> >15:00</option>
-        <option value="16" <?php if($_SESSION['selected_time'] == "16"){ echo "selected='selected'"; }?> >16:00</option>
-        <option value="17" <?php if($_SESSION['selected_time'] == "17"){ echo "selected='selected'"; }?> >17:00</option>
-        <option value="18" <?php if($_SESSION['selected_time'] == "18"){ echo "selected='selected'"; }?> >18:00</option>
-        <option value="19" <?php if($_SESSION['selected_time'] == "19"){ echo "selected='selected'"; }?> >19:00</option>
-        <option value="20" <?php if($_SESSION['selected_time'] == "20"){ echo "selected='selected'"; }?> >20:00</option>
-        <option value="21" <?php if($_SESSION['selected_time'] == "21"){ echo "selected='selected'"; }?> >21:00</option>
-        <option value="22" <?php if($_SESSION['selected_time'] == "22"){ echo "selected='selected'"; }?> >22:00</option>
-        <option value="23" <?php if($_SESSION['selected_time'] == "23"){ echo "selected='selected'"; }?> >23:00</option> 
-        <!-- this is the time selection for the weather -->
-      </select>
-    </div>
-    </form>
-  <div class="row">
-    <div class="col">
-    <div style="margin-top: 4%;">
-        <h2 id="weather_description"></h2>
-        <img id="weather_icon" src="" alt="" style="width: 150px; height: 150px;">
-    </div>
-    </div>
-    <div class="col">
-    <table class="table" style="width: 100%;">
-    <tbody>
-    <tr>
-      <th scope="row">Temperature</th>
-      <td id="temperature"></td>
-    </tr>
-    <tr>
-    <th scope="row">Humidity</th>
-    <td id="humidity"></td>
-    </tr>
-    <tr>
-    <th scope="row">Wind Speed</th>
-    <td id="wind_speed"></td>
-    </tr>
-    <tr>
-    <th scope="row">Maximum Gusts</th>
-    <td id="maximum_gusts"></td>
-    </tr>
-    <th scope="row">Chance of rain</th>
-    <td id="rain_chance"></td>
-    </tr>
-    <tr>
-    <th scope="row">Air Quality</th>
-    <td id="air_quality"></td>
-    </tr>
-    </tbody>
-    </table>
-    </div>
-    </div>
+  <div id="weather_spacing">
+  <h2 style="text-align: center;">Day</h2>
+  <div class="container">
+  <div div class="d-flex justify-content-center">
+    <ul class="pagination pagination-lg">
+      <li class="page-item">
+        <form id="form_day_selection_backward" action="forecast.php" method="post">
+          <button class="btn btn-primary">&laquo;</button>
+          <input class="form-control" name="back_selected_day" type="hidden" value="-1">
+        </form>
+      </li>
+      <li class="page-item active">
+        <form id="form_day_selection1" action="forecast.php" method="post">
+          <button value="0" class="btn btn-primary">1</button>
+          <input class="form-control" name="selected_day" type="hidden" value="0">
+        </form>
+      </li>
+      <li class="page-item">
+        <form id="form_day_selection2" action="forecast.php" method="post">
+          <button value="1" class="btn btn-primary">2</button>
+          <input class="form-control" name="selected_day" type="hidden" value="1">
+        </form>
+      </li>
+      <li class="page-item">
+        <form id="form_day_selection3" action="forecast.php" method="post">
+          <button value="2" class="btn btn-primary">3</button>
+          <input class="form-control" name="selected_day" type="hidden" value="2">
+        </form>  
+      </li>
+      <li class="page-item">
+        <form id="form_day_selection_forward" action="forecast.php" method="post">
+          <button class="btn btn-primary">&raquo;</button>
+          <input class="form-control" name="forward_selected_day" type="hidden" value="1">
+        </form>
+      </li>
+    </ul>
+  </form>
   </div>
-</div>
-
+  <form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
+      <div class="form-group">
+        <label for="time_select" class="form-label mt-4">Time</label>
+        <select class="form-select" name="time_selected" id="time_select">
+          <!-- this is the time selection for the weather -->
+          <option value="0" <?php if($_SESSION['selected_time'] == "0"){ echo "selected='selected'"; }?> >00:00</option>
+          <option value="1" <?php if($_SESSION['selected_time'] == "1"){ echo "selected='selected'"; }?> >01:00</option>
+          <option value="2" <?php if($_SESSION['selected_time'] == "2"){ echo "selected='selected'"; }?> >02:00</option>
+          <option value="3" <?php if($_SESSION['selected_time'] == "3"){ echo "selected='selected'"; }?> >03:00</option>
+          <option value="4" <?php if($_SESSION['selected_time'] == "4"){ echo "selected='selected'"; }?> >04:00</option>
+          <option value="5" <?php if($_SESSION['selected_time'] == "5"){ echo "selected='selected'"; }?> >05:00</option>
+          <option value="6" <?php if($_SESSION['selected_time'] == "6"){ echo "selected='selected'"; }?> >06:00</option>
+          <option value="7" <?php if($_SESSION['selected_time'] == "7"){ echo "selected='selected'"; }?> >07:00</option>
+          <option value="8" <?php if($_SESSION['selected_time'] == "8"){ echo "selected='selected'"; }?> >08:00</option>
+          <option value="9" <?php if($_SESSION['selected_time'] == "9"){ echo "selected='selected'"; }?> >09:00</option>
+          <option value="10" <?php if($_SESSION['selected_time'] == "10"){ echo "selected='selected'"; }?> >10:00</option>
+          <option value="11" <?php if($_SESSION['selected_time'] == "11"){ echo "selected='selected'"; }?> >11:00</option>
+          <option value="12" <?php if($_SESSION['selected_time'] == "12"){ echo "selected='selected'"; }?> >12:00</option>
+          <option value="13" <?php if($_SESSION['selected_time'] == "13"){ echo "selected='selected'"; }?> >13:00</option>
+          <option value="14" <?php if($_SESSION['selected_time'] == "14"){ echo "selected='selected'"; }?> >14:00</option>
+          <option value="15" <?php if($_SESSION['selected_time'] == "15"){ echo "selected='selected'"; }?> >15:00</option>
+          <option value="16" <?php if($_SESSION['selected_time'] == "16"){ echo "selected='selected'"; }?> >16:00</option>
+          <option value="17" <?php if($_SESSION['selected_time'] == "17"){ echo "selected='selected'"; }?> >17:00</option>
+          <option value="18" <?php if($_SESSION['selected_time'] == "18"){ echo "selected='selected'"; }?> >18:00</option>
+          <option value="19" <?php if($_SESSION['selected_time'] == "19"){ echo "selected='selected'"; }?> >19:00</option>
+          <option value="20" <?php if($_SESSION['selected_time'] == "20"){ echo "selected='selected'"; }?> >20:00</option>
+          <option value="21" <?php if($_SESSION['selected_time'] == "21"){ echo "selected='selected'"; }?> >21:00</option>
+          <option value="22" <?php if($_SESSION['selected_time'] == "22"){ echo "selected='selected'"; }?> >22:00</option>
+          <option value="23" <?php if($_SESSION['selected_time'] == "23"){ echo "selected='selected'"; }?> >23:00</option> 
+          <!-- this is the time selection for the weather -->
+        </select>
+      </div>
+      </form>
+    <div class="row">
+      <div class="col">
+      <div style="margin-top: 4%;">
+          <h2 id="weather_description"></h2>
+          <img id="weather_icon" src="" alt="" style="width: 150px; height: 150px;">
+      </div>
+      </div>
+      <div class="col">
+      <table class="table" style="width: 100%;">
+      <tbody>
+      <tr>
+        <th scope="row">Temperature</th>
+        <td id="temperature"></td>
+      </tr>
+      <tr>
+      <th scope="row">Humidity</th>
+      <td id="humidity"></td>
+      </tr>
+      <tr>
+      <th scope="row">Wind Speed</th>
+      <td id="wind_speed"></td>
+      </tr>
+      <tr>
+      <th scope="row">Maximum Gusts</th>
+      <td id="maximum_gusts"></td>
+      </tr>
+      <th scope="row">Chance of rain</th>
+      <td id="rain_chance"></td>
+      </tr>
+      <tr>
+      <th scope="row">Air Quality</th>
+      <td id="air_quality"></td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      </div>
+    </div>
+</body>
+</html>
 
 <script>
-    var pagetitle = document.getElementById("pagetitle");
-    pagetitle.innerHTML = "Forecast for " + weather_location; //this changes the heading of the page to match the location of the weather
+    var page_title = document.getElementById("page_title");
+    page_title.innerHTML = "Forecast for " + weather_location; //this changes the heading of the page to match the location of the weather
 $.ajax(settings).done(function (weather_data) {
     var weather_warning = document.getElementById("weather_warning");
     var alert_text = "";
