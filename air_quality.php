@@ -209,6 +209,10 @@ anychart.onDocumentReady(function() {
 </div>
 <form class="d-flex" name="time_selection" id="time_selection" action="air_quality.php" method="post"> 
     <div class="form-group">
+      <label for="date_display" class="form-label mt-4">Date</label>
+      <input class="form-control" type="text" name="date_display" id="date_display" value="<?php echo (date("Y-m-d", strtotime("+" . $_SESSION["selected_day"] . " days"))); ?>" disabled>
+    </div>
+    <div class="form-group">
       <label for="time_select" class="form-label mt-4">Time</label>
       <select class="form-select" name="time_selected" id="time_select">
         <!-- this is the time selection for the weather -->

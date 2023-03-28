@@ -24,7 +24,7 @@ if (!isset($_SESSION['selected_time'])) {
 }
 if (isset($_POST["time_selected"])) {
     $_SESSION['selected_time'] = $_POST["time_selected"];
-}
+} //this checks if the user has selected a time and sets it to that time
 
 if (!isset($_SESSION["selected_day"])) {
     $_SESSION["selected_day"] = 0;
@@ -48,6 +48,8 @@ if (isset($_POST['back_selected_day'])) {
         $_SESSION["selected_day"] = $_SESSION["selected_day"] - 1;
     }
 }
+
+
 ?>
 <doctype html>
 <html>
@@ -185,6 +187,10 @@ $.ajax(settings).done(function (weather_data) {
   </form>
   </div>
   <form class="d-flex" name="time_selection" id="time_selection" action="forecast.php" method="post"> 
+    <div class="form-group">
+      <label for="date_display" class="form-label mt-4">Date</label>
+      <input class="form-control" type="text" name="date_display" id="date_display" value="<?php echo (date("Y-m-d", strtotime("+" . $_SESSION["selected_day"] . " days"))); ?>" disabled>
+      </div>
       <div class="form-group">
         <label for="time_select" class="form-label mt-4">Time</label>
         <select class="form-select" name="time_selected" id="time_select">

@@ -42,7 +42,7 @@ if (isset($_SESSION['email_error'])) {
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <img src="images/placeholder.png" alt="logo" style="width:75px; height:50px; padding-right: 10px;">
+    <img src="images/placeholder.png" alt="logo" style="width:75px; height_feet:50px; padding-right: 10px;">
     <a class="navbar-brand" href="index.php">Health Advice Group</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -97,8 +97,24 @@ if (isset($_SESSION['email_error'])) {
     <div class='alert alert-danger' role='alert' <?php echo "$pass_alert" ?> style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Passwords do not match</div>
   </div>
   <div class="mb-3">
+    <label for="height_feet" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Height feet</label>
+    <input type="number" class="form-control" id="height_feet" name="height_feet" placeholder="height feet" max="6" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
+  </div>
+  <div class="mb-3">
+    <label for="height_inch" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Height inches</label>
+    <input type="number" class="form-control" id="height_inch" name="height_inch" placeholder="height inch" max="11" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
+  </div>
+  <div class="mb-3">
+    <label for="weight" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Weight</label>
+    <input type="number" class="form-control" id="weight" name="weight" placeholder="weight" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
+  </div>
+  <div class="mb-3">
+    <label for="age" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Age</label>
+    <input type="number" class="form-control" id="age" name="age" placeholder="weight" max="110" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
+  </div>
+  <div class="mb-3">
     <input type="submit" class="btn btn-primary" class="form-control" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">
-</div>
+  </div>
 </form>
 </body>
 </html>
