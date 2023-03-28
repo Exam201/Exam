@@ -28,7 +28,6 @@ if (isset($_POST["time_selected"])) {
 
 if (!isset($_SESSION["selected_day"])) {
     $_SESSION["selected_day"] = 0;
-    echo "!";
 } //this checks if the user has set a day else sets it to 0 (current day)
 
 if (isset($_POST['selected_day'])) {

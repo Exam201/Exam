@@ -105,8 +105,8 @@ if (isset($_SESSION['email_error'])) {
     <input type="number" class="form-control" id="height_inch" name="height_inch" placeholder="height inch" max="11" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
   </div>
   <div class="mb-3">
-    <label for="weight" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Weight</label>
-    <input type="number" class="form-control" id="weight" name="weight" placeholder="weight" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
+    <label for="weight" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Weight (kg)</label>
+    <input type="number" class="form-control" id="weight" name="weight" placeholder="weight (kg)" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%;" required>
   </div>
   <div class="mb-3">
     <label for="age" class="form-label" style="margin-top: 1%; margin-left: auto; margin-right: auto; width: 20%; display:block">Age</label>

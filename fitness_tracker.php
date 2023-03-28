@@ -290,11 +290,11 @@ const settings = {
     </div>
     <div class="col-sm">
       <h2>Distance (in miles)</h2>
-      <p>Distance travelled today: <?php echo "$today_distance"; ?></p>
-      <p>Distance travelled this week: <?php echo "$last_week_distance"; ?></p>
-      <p>Distance travelled this month: <?php echo "$last_month_distance"; ?></p>
-      <p>Distance travelled this year: <?php echo "$last_year_distance"; ?></p>
-      <p>Distance travelled all time: <?php echo "$total_distance"; ?></p>
+      <p>Distance travelled today: <?php echo (round($today_distance, 2)) ?></p>
+      <p>Distance travelled this week: <?php echo (round($last_week_distance, 2)) ?></p>
+      <p>Distance travelled this month: <?php echo (round($last_month_distance, 2)) ?></p>
+      <p>Distance travelled this year: <?php echo (round($last_year_distance, 2)) ?></p>
+      <p>Distance travelled all time: <?php echo (round($total_distance, 2)) ?></p>
     </div>
   </div>
 </div>
@@ -395,7 +395,7 @@ const settings = {
 </div>
 </div>
 </div>
-<div style="">
+<div style="margin-top:1%;">
 <div id="guidance_alert" class="alert alert-dismissible alert-success">
   <h4 id="guidance_alert_heading" class="alert-heading" style="text-align: center;"></h4>
   <p id="guidance_alert_text" class="mb-0" style="text-align: center;"></p>
