@@ -390,10 +390,16 @@ const settings = {
     <th scope="row">Sulphur Dioxide (SO2)</th>
     <td id="so2_levels"></td>
     </tr>
+    </tbody>
+    </table>
 </div>
-
-
-
+</div>
+</div>
+<div style="">
+<div id="guidance_alert" class="alert alert-dismissible alert-success">
+  <h4 id="guidance_alert_heading" class="alert-heading" style="text-align: center;"></h4>
+  <p id="guidance_alert_text" class="mb-0" style="text-align: center;"></p>
+</div>
 </body>
 </html>
 <script>

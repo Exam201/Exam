@@ -26,27 +26,26 @@ if ($_POST['password'] == $_POST['confirmpassword']) { // if the password and co
             $_SESSION['email_error'] = true;
             header('location: register.php');
         }
-        else {
-            //write code that updates users and user_data tables 
+        else { 
             $profileimage = 'image-uploads/default.png';
             $passwordfilter = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
             $password = password_hash($passwordfilter, PASSWORD_DEFAULT);
             $query = "INSERT INTO users (username, password, email, admin, profileimage) VALUES (?, ?, ?, 0, ?)";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("ssss", filter_var($_POST['username'], FILTER_SANITIZE_STRING), $password, filter_var($_POST['email'], FILTER_SANITIZE_STRING), $profileimage);
-            $stmt->execute();
+            $stmt->execute(); //insert the user's username, password, email, and profile image into the users table
             header('location: login.php');
             $query = "SELECT * FROM users WHERE username=?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("s", filter_var($_POST['username'], FILTER_SANITIZE_STRING));
-            $stmt->execute();
+            $stmt->execute(); // get the user's user_id
             $result = $stmt->get_result();
             $user = $result->fetch_assoc();
             $user['user_id'];
             $query = "INSERT INTO user_data (height_feet, height_inch, weight, age, user_id) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("iiiii", $_POST['height_feet'], $_POST['height_inch'], $_POST['weight'], $_POST['age'], $user['user_id']);
-            $stmt->execute();
+            $stmt->execute(); // insert the user's height, weight, and age into the user_data table
         }
 
         }

@@ -49,7 +49,7 @@ if (isset($_SESSION['pass_login_fail'])) {
           <a class="nav-link" href="login.php">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Settings</a>
+          <a class="nav-link" href="settings.php">Settings</a>
         </li>
       </ul>
     </div>

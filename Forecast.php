@@ -84,9 +84,6 @@ else
 
 var selected_day = "<?php echo "" . $_SESSION['selected_day']?>" //this gets the selected day from the session variable
 
-$.ajax(settings).done(function (weather_data) {
-    console.log(weather_data);
-});
 </script>
 <style>
     .table {
@@ -128,7 +125,7 @@ $.ajax(settings).done(function (weather_data) {
             <a class="nav-link" href="logout.php">Logout</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
+            <a class="nav-link" href="settings.php">Settings</a>
           </li>
         </ul>
       </div>

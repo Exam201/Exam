@@ -71,7 +71,7 @@ if (isset($_SESSION['email_error'])) {
           <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Settings</a>
+          <a class="nav-link" href="settings.php">Settings</a>
         </li>
       </ul>
     </div>

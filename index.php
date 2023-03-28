@@ -51,7 +51,7 @@ $conn = connect(); //this calls the connection function from the dbconnect.php f
           <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Settings</a>
+          <a class="nav-link" href="settings.php">Settings</a>
         </li>
       </ul>
     </div>

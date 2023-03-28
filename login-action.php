@@ -14,7 +14,7 @@
             $_SESSION['userid'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['admin'] = $user['admin'];
-            $_SESSION['profileimage'] = $user['profileimage'];
+            $_SESSION['profileimage'] = $user['profileimage']; // set the session variables to the user's information from the database (so we can use them in other pages)
             header('location: index.php');
         }
         else {

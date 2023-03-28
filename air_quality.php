@@ -154,7 +154,7 @@ anychart.onDocumentReady(function() {
           <a class="nav-link" href="logout.php">Logout</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Settings</a>
+          <a class="nav-link" href="settings.php">Settings</a>
         </li>
       </ul>
     </div>
@@ -169,6 +169,7 @@ anychart.onDocumentReady(function() {
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button> <!-- this is the search bar for the location of the weather -->
     </form>
 </div>
+<!-- this is the day selection for the weather -->
 <div id="weather_spacing">
 <h2 style="text-align: center;">Day</h2>
 <div class="container">
@@ -251,6 +252,7 @@ anychart.onDocumentReady(function() {
         <div id="chart_container"></div>
     </div>
     </div>
+    <!-- this is the air quality table -->
     <div class="col">
     <table class="table" style="width: 100%; margin-top: 7%;">
     <thead>
